@@ -3,9 +3,10 @@ const snoowrap = require('snoowrap');
 require('dotenv').config();
 //const app = express();
 
+sub = '2007scape';
 
 
-async function scrapeSubreddit(){
+ async function listSubreddit(sub){
 
 
     const r = new snoowrap({
@@ -14,7 +15,7 @@ async function scrapeSubreddit(){
         clientSecret: process.env.SECRET,
         refreshToken: process.env.REFRESH
     });
-    const subreddit = await r.getSubreddit('realEstate');
+    const subreddit = await r.getSubreddit(sub);
     const topPosts = await subreddit.getTop({time: 'week', limit: 3});
   
     let data = [];
@@ -30,5 +31,16 @@ async function scrapeSubreddit(){
     console.log(data);
 
 
+    /*
+    r.getUser('kit_is_lost').fetch().then(userInfo => {
+        console.log(userInfo.name); // 'not_an_aardvark'
+        console.log(userInfo.created); // 1419104352
+
+        
+      });
+    */
+      //r.getComment('ikcjinl').fetch().then(comment => comment.body).then(console.log)
+    
+
 }
-scrapeSubreddit();
+listSubreddit(sub);
